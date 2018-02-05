@@ -8,8 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Created by rahul on 4/2/18.
  */
 object ApiClient {
+        @JvmStatic
+        var BASE_URL = "https://s3-eu-west-1.amazonaws.com/forza-assignment/android/"
 
-        val BASE_URL = "https://s3-eu-west-1.amazonaws.com/forza-assignment/android/"
         private var retrofit: Retrofit? = null
 
         fun getClient(): Retrofit {

@@ -26,11 +26,18 @@ class HomePresenter(val context: Context,
         apiService.getTeams().enqueue(object : Callback<MutableList<Team>> {
             override fun onFailure(call: Call<MutableList<Team>>?, t: Throwable?) {
                 Log.d("onFailure",t!!.message)
+                mHomeActivity.showNoTeams()
             }
 
             override fun onResponse(call: Call<MutableList<Team>>?, response: Response<MutableList<Team>>?) {
                 if(response!!.body()!=null) {
-                  mHomeActivity.showTeams(response.body()!!)
+                    if(response.body()!!.isEmpty()){
+                        mHomeActivity.showNoTeams()
+                    }else {
+                        mHomeActivity.showTeams(response.body()!!)
+                    }
+                }else{
+                    mHomeActivity.showNoTeams()
                 }
             }
 
