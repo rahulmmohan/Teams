@@ -16,7 +16,6 @@ object RestServiceTestHelper {
     fun convertStreamToString(input: InputStream): String {
         val reader = BufferedReader(InputStreamReader(input))
         val sb = StringBuilder()
-        var line: String
         for(line in reader.readLine()) {
             sb.append(line)
         }

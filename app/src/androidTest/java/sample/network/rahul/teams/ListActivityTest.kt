@@ -17,25 +17,21 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import sample.network.rahul.teams.teams.HomeActivity
+import sample.network.rahul.teams.teams.ListActivity
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.espresso.matcher.ViewMatchers.withText
 
-/**
- * @author rebeccafranks
- * @since 15/10/25.
- */
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest : InstrumentationTestCase() {
+class ListActivityTest : InstrumentationTestCase() {
 
 
-    @Rule @JvmField
-    var mActivityRule = ActivityTestRule(HomeActivity::class.java, true, false)
+    @Rule
+    @JvmField
+    var mActivityRule = ActivityTestRule(ListActivity::class.java, true, false)
     private var server: MockWebServer? = null
 
     @Before
@@ -50,32 +46,51 @@ class MainActivityTest : InstrumentationTestCase() {
 
     @Test
     @Throws(Exception::class)
-    fun test_team_list_shown_when_success_response() {
+    fun test_empty_response() {
+        val fileName = "200_ok_response_empty.json"
+
+        server!!.enqueue(MockResponse()
+                .setResponseCode(200)
+                .setBody(RestServiceTestHelper.getStringFromFile(instrumentation.context, fileName)))
+
+
+        val intent = Intent()
+        mActivityRule.launchActivity(intent)
+
+        onView(withId(R.id.recyclerView)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)))
+        onView(withId(R.id.noTeams)).check(matches(isDisplayed()))
+    }
+
+
+    @Test
+    @Throws(Exception::class)
+    fun test_failed_response() {
+        server!!.enqueue(MockResponse()
+                .setResponseCode(404))
+
+        val intent = Intent()
+        mActivityRule.launchActivity(intent)
+
+        onView(withId(R.id.recyclerView)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)))
+        onView(withId(R.id.noTeams)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun test_success_response() {
         val fileName = "200_ok_response.json"
 
         server!!.enqueue(MockResponse()
                 .setResponseCode(200)
                 .setBody(RestServiceTestHelper.getStringFromFile(instrumentation.context, fileName)))
 
+
         val intent = Intent()
         mActivityRule.launchActivity(intent)
 
         onView(withId(R.id.recyclerView)).check(matches(isDisplayed()))
-        onView(withId(R.id.noNotes)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)))
+        onView(withId(R.id.noTeams)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)))
     }
-
-//    @Test
-//    @Throws(Exception::class)
-//    fun test_noTeams_shown_when_failed_response() {
-//        server!!.enqueue(MockResponse()
-//                .setResponseCode(404))
-//
-//        val intent = Intent()
-//        mActivityRule.launchActivity(intent)
-//
-//        onView(withId(R.id.recyclerView)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)))
-//        onView(withId(R.id.noNotes)).check(matches(isDisplayed()))
-//    }
 
     @After
     @Throws(Exception::class)

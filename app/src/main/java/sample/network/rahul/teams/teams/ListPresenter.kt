@@ -15,29 +15,29 @@ import sample.network.rahul.teams.datasource.Team
  */
 
 /**
- * Listens to user actions from the UI ([HomeActivity]), retrieves the data and updates
+ * Listens to user actions from the UI ([ListActivity]), retrieves the data and updates
  * the UI as required.
  */
-class HomePresenter(val context: Context,
-                    private val mHomeActivity: HomeContract.View) : HomeContract.Presenter {
+class ListPresenter(val context: Context,
+                    private val mListActivity: ListContract.View) : ListContract.Presenter {
     private val apiService = ApiClient.getClient().create(ApiInterface::class.java)
 
     override fun loadTeams() {
         apiService.getTeams().enqueue(object : Callback<MutableList<Team>> {
             override fun onFailure(call: Call<MutableList<Team>>?, t: Throwable?) {
                 Log.d("onFailure",t!!.message)
-                mHomeActivity.showNoTeams()
+                mListActivity.showNoTeams()
             }
 
             override fun onResponse(call: Call<MutableList<Team>>?, response: Response<MutableList<Team>>?) {
                 if(response!!.body()!=null) {
                     if(response.body()!!.isEmpty()){
-                        mHomeActivity.showNoTeams()
+                        mListActivity.showNoTeams()
                     }else {
-                        mHomeActivity.showTeams(response.body()!!)
+                        mListActivity.showTeams(response.body()!!)
                     }
                 }else{
-                    mHomeActivity.showNoTeams()
+                    mListActivity.showNoTeams()
                 }
             }
 

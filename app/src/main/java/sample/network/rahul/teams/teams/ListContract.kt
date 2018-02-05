@@ -6,7 +6,7 @@ import sample.network.rahul.teams.datasource.Team
 /**
  * Created by Rahul on 16/01/18.
  */
-class HomeContract {
+class ListContract {
 
     interface View {
         fun showTeams(Notes: MutableList<Team>)

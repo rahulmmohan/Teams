@@ -18,11 +18,13 @@ import retrofit2.mock.NetworkBehavior
 /**
  * Created by rahul on 5/2/18.
  */
-
+@RunWith(AndroidJUnit4::class)
 class TeamsMockAdapterTest: InstrumentationTestCase() {
     lateinit var retrofit:Retrofit
     private var server: MockWebServer? = null
 
+    @Before
+    @Throws(Exception::class)
     override fun setUp() {
         server = MockWebServer()
         server!!.start()
@@ -41,6 +43,7 @@ class TeamsMockAdapterTest: InstrumentationTestCase() {
         val mockTeamServiceFail = retrofit.create(ApiInterface::class.java)
         val call = mockTeamServiceFail.getTeams()
         val teams = call.execute()
+        server!!.takeRequest()
         Assert.assertEquals(404,teams.code())
     }
 
