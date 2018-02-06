@@ -1,9 +1,7 @@
-package com.example.rahul.autocoupons.data
+package sample.network.rahul.teams.datasource
 
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Query
-import sample.network.rahul.teams.datasource.Team
 
 
 /**

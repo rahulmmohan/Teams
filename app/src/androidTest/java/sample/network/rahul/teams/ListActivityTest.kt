@@ -2,28 +2,22 @@ package sample.network.rahul.teams
 
 import android.content.Intent
 import android.support.test.InstrumentationRegistry
+import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.test.InstrumentationTestCase
-
-import com.example.rahul.autocoupons.data.ApiClient
 import com.squareup.okhttp.mockwebserver.MockResponse
 import com.squareup.okhttp.mockwebserver.MockWebServer
-
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
+import sample.network.rahul.teams.datasource.ApiClient
 import sample.network.rahul.teams.teams.ListActivity
-
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
-import android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
-import android.support.test.espresso.matcher.ViewMatchers.withId
 
 @RunWith(AndroidJUnit4::class)
 class ListActivityTest : InstrumentationTestCase() {

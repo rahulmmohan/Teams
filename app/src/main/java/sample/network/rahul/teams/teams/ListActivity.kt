@@ -20,7 +20,7 @@ class ListActivity : AppCompatActivity(), ListContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
-        mPresenter = ListPresenter(this, this)
+        mPresenter = ListPresenter(this)
         setupRecyclerView()
         mPresenter.loadTeams()
     }

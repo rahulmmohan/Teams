@@ -4,7 +4,7 @@ import sample.network.rahul.teams.datasource.Team
 
 
 /**
- * Created by Rahul on 16/01/18.
+ * Created by Rahul on 04/02/18.
  */
 class ListContract {
 

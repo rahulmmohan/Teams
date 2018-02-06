@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Teams</string>
+    <string name="no_teams_found">No teams found!</string>
+    <string name="arsenal_fc">Arsenal FC</string>
+    <string name="england">England</string>
+    <string name="national_team">National Team</string>
+    <string name="team_image">team_image</string>
 </resources>

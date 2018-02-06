@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:text="message"
+        android:text="@string/no_teams_found"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <android.support.v7.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.example.rahul.autocoupons.data
+package sample.network.rahul.teams.datasource
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

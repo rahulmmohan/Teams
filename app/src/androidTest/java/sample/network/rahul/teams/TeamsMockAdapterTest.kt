@@ -1,31 +1,29 @@
 package sample.network.rahul.teams
 
 import android.support.test.InstrumentationRegistry
-import android.support.test.filters.SmallTest
 import android.support.test.runner.AndroidJUnit4
 import android.test.InstrumentationTestCase
-import com.example.rahul.autocoupons.data.ApiClient
-import com.example.rahul.autocoupons.data.ApiInterface
 import com.squareup.okhttp.mockwebserver.MockResponse
 import com.squareup.okhttp.mockwebserver.MockWebServer
-import org.junit.*
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import retrofit2.Retrofit
-import retrofit2.mock.BehaviorDelegate
-import retrofit2.mock.MockRetrofit
-import retrofit2.mock.NetworkBehavior
+import sample.network.rahul.teams.datasource.ApiClient
+import sample.network.rahul.teams.datasource.ApiInterface
 
 /**
  * Created by rahul on 5/2/18.
  */
 @RunWith(AndroidJUnit4::class)
 class TeamsMockAdapterTest: InstrumentationTestCase() {
-    lateinit var retrofit:Retrofit
+    private lateinit var retrofit:Retrofit
     private var server: MockWebServer? = null
 
     @Before
     @Throws(Exception::class)
-    override fun setUp() {
+    public override fun setUp() {
         server = MockWebServer()
         server!!.start()
         injectInstrumentation(InstrumentationRegistry.getInstrumentation())
@@ -35,21 +33,7 @@ class TeamsMockAdapterTest: InstrumentationTestCase() {
 
 
     @Test
-    fun test_team_fetch_fail(){
-        //server!!.start()
-        server!!.enqueue(MockResponse()
-                .setResponseCode(404)
-                .setBody(""))
-        val mockTeamServiceFail = retrofit.create(ApiInterface::class.java)
-        val call = mockTeamServiceFail.getTeams()
-        val teams = call.execute()
-        server!!.takeRequest()
-        Assert.assertEquals(404,teams.code())
-    }
-
-
-    @Test
-    fun test_team_fetch(){
+    fun test_team_fetch_success(){
         val fileName = "200_ok_response.json"
 
         server!!.enqueue(MockResponse()
@@ -63,14 +47,6 @@ class TeamsMockAdapterTest: InstrumentationTestCase() {
         Assert.assertEquals("Arsenal FC", teams.body()!![0].name)
         Assert.assertFalse( teams.body()!![0].national)
         Assert.assertEquals("England", teams.body()!![0].countryName)
-        server!!.shutdown()
-    }
-
-
-    @After
-    @Throws(Exception::class)
-    public override fun tearDown() {
-        server!!.shutdown()
     }
 
 }

@@ -13,7 +13,7 @@ import java.io.InputStreamReader
 object RestServiceTestHelper {
 
     @Throws(Exception::class)
-    fun convertStreamToString(input: InputStream): String {
+    private fun convertStreamToString(input: InputStream): String {
         val reader = BufferedReader(InputStreamReader(input))
         val sb = StringBuilder()
         for(line in reader.readLine()) {
